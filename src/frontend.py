@@ -42,6 +42,9 @@ if st.button("Predict Congestion"):
     try:
         # Note: We assume the API is running on localhost:8000
         response = requests.post("http://127.0.0.1:8000/predict", json=payload)
+        # In the cloud, both run on the same machine, so localhost works IF both are running.
+        # # But just to be safe, we use the specific loopback.
+        response = requests.post("http://0.0.0.0:8000/predict", json=payload)
        
         if response.status_code == 200:
             result = response.json()
